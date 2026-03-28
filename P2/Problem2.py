@@ -89,6 +89,7 @@ print("Vector store saved to final_vector_store.pkl")
 # Step 3f: Run Example Queries and Collect Data for Report
 example_queries = [
     "What is a Tool poisoning attack in MCP?",
+    "What is MCP client?",
     " What are the limitation of previous works on MCP servers",
     "What are the security best practices for MCP servers?"
 ]
