@@ -1,0 +1,29 @@
+Prior Work on MCP Security Attack Taxonomies
+
+Prior research on MCP security has largely focused on enumerating attack vectors and organizing them into attack-centric taxonomies or benchmark-driven threat lists.
+Song et al. provide one of the earliest structured analyses of the MCP ecosystem by categorizing malicious server behaviors such as tool poisoning, rug-pull attacks, and adversarial external resources, and by empirically demonstrating their real-world feasibility.
+Building on this perspective, Zhao et al. further systematize server-side MCP threats by classifying malicious behaviors and studying their detectability and mitigation challenges.
+
+Several benchmark efforts introduce taxonomies through structured attack lists and evaluation pipelines.
+Yang et al. propose MCPSecBench, which organizes MCP attacks across multiple interaction surfaces and evaluates their success against real-world tools, while Zhang et al. introduce MSB, defining attacks along the tool-use pipeline from planning to execution and response handling.
+Focusing specifically on metadata-based manipulation, Wang et al. present MCPTox, demonstrating that high attack success rates can be achieved through tool poisoning alone without executing malicious tools.
+
+Extending attack categorization to more realistic settings, Zong et al. introduce MCP-SafetyBench, which classifies attacks across server-, host-, and user-level interactions and highlights compounding safety failures in multi-turn, cross-server workflows.
+Complementing these studies, large-scale ecosystem analysis by Hasan et al. reveals that MCP-specific vulnerabilities are widespread in open-source servers, underscoring the systemic nature of the threat landscape.
+Finally, Jing et al. propose MCIP, a protocol-level safety framework accompanied by a fine-grained taxonomy of unsafe MCP behaviors, emphasizing contextual integrity rather than isolated exploits.
+Collectively, these works establish a rich catalog of MCP attack classes, but they predominantly organize threats by attack technique or evaluation surface, offering limited guidance on defense placement across MCP’s architectural trust boundaries.
+
+
+Limitations of Existing MCP Security Research
+
+Despite recent progress in analyzing the security of the Model Context Protocol (MCP), existing work exhibits several important limitations:
+
+- Attack-centric focus. Most studies prioritize identifying attack vectors or measuring vulnerability and attack success rates, but do not specify where defenses should be deployed within the MCP architecture or which components are responsible for enforcement.
+
+- Lack of defense placement guidance. Existing taxonomies and mitigation efforts rarely distinguish between primary (earliest feasible) and secondary (fallback or compensatory) defense layers, making it difficult to reason about defense ordering and composition.
+
+- Partial defense coverage. Proposed defenses, including protocol-level constraints and runtime monitoring mechanisms, address only subsets of known attacks, leaving gaps at critical layers such as registries, clients, transport, and the software supply chain.
+
+- Unclear defense effectiveness. Current benchmarks primarily evaluate attack feasibility and success, but seldom map attacks to available academic or industrial defenses or explicitly identify which attacks remain uncovered.
+
+- Lack of systematic defense overview. To the best of our knowledge, there is no unified overview or systematic review of available MCP defense mechanisms across academic and industrial deployments, making it difficult to assess defense coverage, compare approaches, or reason about residual risk at the ecosystem level.
