@@ -92,7 +92,7 @@ and the response 2 is generated with temperature 0.9.
 </table>      
 
 
-** c. Record outputs and compare determinism, diversity, and factual consistency.**
+**c. Record outputs and compare determinism, diversity, and factual consistency.**
 
 ***Inference Comparison Analysis***
 
@@ -144,12 +144,9 @@ Ant it is stored in "P2/final_vector_store.pkl"
 
 **d. Store each chunk and its embedding in a simple vector store.**
 
+The embedding file is stored in a .pkl file in the P2 folder. This will used for the next problems.
 
 **e. For a user query, compute its embedding and retrieve the top k chunks using cosine similarity.**
-
-
-
-
 
 **f. Report retrieved chunks for at least three example queries.**
 
@@ -163,6 +160,18 @@ example_queries = [
 ]
 
 ```
+
 You can see the result of embedding and top k chunks here:
 
 [Retrieval Report](P2/Retrieval_Report.md)
+
+## Problem 3
+
+**Problem 3**
+
+**a. Construct a prompt that includes:**
+
+- The question
+- Retrieved context
+- An instruction to answer using the context
+- An instruction to cite the retrieved passages
