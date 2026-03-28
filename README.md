@@ -4,12 +4,12 @@
 ## Assignment 2
 ### Mehrdad Rostamzadeh
 
-## Problem 1
+
 This assignment studies LLM inference and retrieval-augmented generation (RAG). You
 may use any accessible models or libraries (e.g., GPT-4o Mini, Claude Haiku, Gemini Flash,
 LLaMA-3-8B-Instruct, Mistral-7B-Instruct, Qwen-2.5-7B-Instruct, Hugging Face tools).
 
-**Problem 1**
+## Problem 1
 
 **a. Select 5 prompts requiring short but nontrivial responses.**
 
@@ -117,10 +117,16 @@ is useful.**
 ## Problem 2
 **a. Select a text document or small document collection.**
 
+You can find the security documentation here: 
+
+[MCP Security Document](../text_files/mcp_security.txt)
+
+
 **b. Load the document(s) and split the text into overlapping chunks.**
 
 **c. Generate embeddings for each chunk using a transformer or sentence-embedding model.**
+
 **d. Store each chunk and its embedding in a simple vector store.**
-**e. For a user query, compute its embedding and retrieve the top k chunks using cosine.**
-similarity.
-**f. Report retrieved chunks for at least three example queries.**
+
+**e. For a user query, compute its embedding and retrieve the top k chunks using cosine similarity.**
+**f. Report retrieved chunks for at least th    ree example queries.**
