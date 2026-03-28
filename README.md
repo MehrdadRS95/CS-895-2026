@@ -119,7 +119,7 @@ is useful.**
 
 You can find the security documentation here: 
 
-[MCP Security Document](../text_files/mcp_security.txt)
+![MCP Security Document](../text_files/mcp_security.txt)
 
 
 **b. Load the document(s) and split the text into overlapping chunks.**
