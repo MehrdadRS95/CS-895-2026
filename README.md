@@ -1,9 +1,8 @@
-
 # CS795/895 — Large Language Model Architectures and Applications
 
 ## Assignment 2
-### Mehrdad Rostamzadeh
 
+### Mehrdad Rostamzadeh
 
 This assignment studies LLM inference and retrieval-augmented generation (RAG). You
 may use any accessible models or libraries (e.g., GPT-4o Mini, Claude Haiku, Gemini Flash,
@@ -22,9 +21,11 @@ prompts = [
     "What is a 'token' in natural language processing?. Briefly explain it"
 ]
 ```
+
 **b. Run them with at least two inference settings (e.g., different temperature values).**
 
- The table below shows selected prompts with two different responses, the response 1 is generated with temperature 0.1, and the response 2 is generated with temperature 0.9.
+The table below shows selected prompts with two different responses, the response 1 is generated with temperature 0.1,
+and the response 2 is generated with temperature 0.9.
 
 
   <table>
@@ -95,38 +96,73 @@ prompts = [
 
 ***Inference Comparison Analysis***
 
-***Determinism (High):*** Both responses were highly predictable, using the exact same examples, "dragon story" for prompts and "The cat sat on the mat" for tokens. The Python functions also used identical logic and naming conventions.
-***Diversity (Low):*** There was minimal variation between the two settings. Changes were limited to minor word swaps (e.g., "type of AI" vs. "advanced AI system") or simple variable renaming in the code from a, b to num1, num2.
-***Factual Consistency (Mixed):*** Response 1 was fully accurate. However, Response 2 failed Prompt 4 entirely by providing the definition of a "token" instead of explaining "hallucinations," representing a significant hallucination or instruction-following error.
-
+***Determinism (High):*** Both responses were highly predictable, using the exact same examples, "dragon story" for
+prompts and "The cat sat on the mat" for tokens. The Python functions also used identical logic and naming conventions.
+***Diversity (Low):*** There was minimal variation between the two settings. Changes were limited to minor word swaps (
+e.g., "type of AI" vs. "advanced AI system") or simple variable renaming in the code from a, b to num1, num2.
+***Factual Consistency (Mixed):*** Response 1 was fully accurate. However, Response 2 failed Prompt 4 entirely by
+providing the definition of a "token" instead of explaining "hallucinations," representing a significant hallucination
+or instruction-following error.
 
 **d. Explain how decoding choices influence generation.**
 
-Decoding choices like Temperature acts like a creativity option that tells the AI how much risk to take when AI wants to select the next word. When the temperature is low (in this problem 0.1), the AI output becomes almost deterministic, meaning it strictly picks the most mathematically likely word every time to ensure the answer is consistent and factual.
-On the other hand, when the temperature is high (in this problem 0.9), it increases the diversity of the output by allowing the AI to select less common words, which makes the responses feel more unique and creative, but also less predictable.
-
-
-
+Decoding choices like Temperature acts like a creativity option that tells the AI how much risk to take when AI wants to
+select the next word. When the temperature is low (in this problem 0.1), the AI output becomes almost deterministic,
+meaning it strictly picks the most mathematically likely word every time to ensure the answer is consistent and factual.
+On the other hand, when the temperature is high (in this problem 0.9), it increases the diversity of the output by
+allowing the AI to select less common words, which makes the responses feel more unique and creative, but also less
+predictable.
 
 **e. Give one application where deterministic inference is preferable and one where diversity
 is useful.**
 
-**Code generation** is an application that requires low diversity and therefore,a low temperature to ensure the syntactic correctness and reliable execution. Increasing the temperature may increase creativity but often results in broken code.
-**Creative writing and brainstorming** are two applications that benefit from a high temperature. A higher temperature increases creativity and enables us to explore more unique ideas, metaphors, and slogans beyond the most statistically likely outputs.
+**Code generation** is an application that requires low diversity and therefore,a low temperature to ensure the
+syntactic correctness and reliable execution. Increasing the temperature may increase creativity but often results in
+broken code.
+**Creative writing and brainstorming** are two applications that benefit from a high temperature. A higher temperature
+increases creativity and enables us to explore more unique ideas, metaphors, and slogans beyond the most statistically
+likely outputs.
 
 ## Problem 2
+
 **a. Select a text document or small document collection.**
 
-You can find the security documentation here: 
+You can find the security documentation here:
 
 [MCP Security Document](text_files/mcp_security.txt)
 
-
 **b. Load the document(s) and split the text into overlapping chunks.**
+
+You can see the chunks here:
+
+[Document split chunks](P2/chunks.csv)
 
 **c. Generate embeddings for each chunk using a transformer or sentence-embedding model.**
 
+Embedding for each chunk is generated using a transformer model named "all-MiniLM-L6-v2"
+Ant it is stored in "P2/final_vector_store.pkl"
+
 **d. Store each chunk and its embedding in a simple vector store.**
 
+
 **e. For a user query, compute its embedding and retrieve the top k chunks using cosine similarity.**
-**f. Report retrieved chunks for at least th    ree example queries.**
+
+
+
+
+
+**f. Report retrieved chunks for at least three example queries.**
+
+Example queries used for this part:
+
+```
+example_queries = [
+    "What is a Tool poisoning attack in MCP?",
+    " What are the limitation of previous works on MCP servers",
+    "What are the security best practices for MCP servers?"
+]
+
+```
+You can see the result of embedding and top k chunks here:
+
+[Retrieval Report](P2/Retrieval_Report.md)

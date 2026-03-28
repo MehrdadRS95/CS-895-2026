@@ -1,18 +1,3 @@
-Prior Work on MCP Security Attack Taxonomies
-
-Prior research on MCP security has largely focused on enumerating attack vectors and organizing them into attack-centric taxonomies or benchmark-driven threat lists.
-Song et al. provide one of the earliest structured analyses of the MCP ecosystem by categorizing malicious server behaviors such as tool poisoning, rug-pull attacks, and adversarial external resources, and by empirically demonstrating their real-world feasibility.
-Building on this perspective, Zhao et al. further systematize server-side MCP threats by classifying malicious behaviors and studying their detectability and mitigation challenges.
-
-Several benchmark efforts introduce taxonomies through structured attack lists and evaluation pipelines.
-Yang et al. propose MCPSecBench, which organizes MCP attacks across multiple interaction surfaces and evaluates their success against real-world tools, while Zhang et al. introduce MSB, defining attacks along the tool-use pipeline from planning to execution and response handling.
-Focusing specifically on metadata-based manipulation, Wang et al. present MCPTox, demonstrating that high attack success rates can be achieved through tool poisoning alone without executing malicious tools.
-
-Extending attack categorization to more realistic settings, Zong et al. introduce MCP-SafetyBench, which classifies attacks across server-, host-, and user-level interactions and highlights compounding safety failures in multi-turn, cross-server workflows.
-Complementing these studies, large-scale ecosystem analysis by Hasan et al. reveals that MCP-specific vulnerabilities are widespread in open-source servers, underscoring the systemic nature of the threat landscape.
-Finally, Jing et al. propose MCIP, a protocol-level safety framework accompanied by a fine-grained taxonomy of unsafe MCP behaviors, emphasizing contextual integrity rather than isolated exploits.
-Collectively, these works establish a rich catalog of MCP attack classes, but they predominantly organize threats by attack technique or evaluation surface, offering limited guidance on defense placement across MCP’s architectural trust boundaries.
-
 
 Limitations of Existing MCP Security Research
 
@@ -27,3 +12,59 @@ Despite recent progress in analyzing the security of the Model Context Protocol 
 - Unclear defense effectiveness. Current benchmarks primarily evaluate attack feasibility and success, but seldom map attacks to available academic or industrial defenses or explicitly identify which attacks remain uncovered.
 
 - Lack of systematic defense overview. To the best of our knowledge, there is no unified overview or systematic review of available MCP defense mechanisms across academic and industrial deployments, making it difficult to assess defense coverage, compare approaches, or reason about residual risk at the ecosystem level.
+
+Tool poisoning
+An adversary embeds malicious natural-language instructions into a tool’s description or metadata, which are then loaded into the agent’s context during MCP registration. The agent treats these poisoned instructions as part of the tool specification, leading it to perform unauthorized operations (e.g., secret exfiltration) via otherwise legitimate tools 
+
+Here is your cleaned version with citations and LaTeX/Overleaf commands removed, formatted as plain text:
+
+---
+
+### Architectural Layers as Security Boundaries
+
+The taxonomy is grounded in the MCP architecture and its real operational trust boundaries. We define six layers, each corresponding to a distinct ownership domain and control surface.
+
+#### Model Provider / LLM Alignment
+
+This layer encompasses the language model itself and the mechanisms that govern its behavior, including alignment policies, refusal logic, tool selection behavior, and training data assumptions, which are typically established through alignment techniques such as reinforcement learning from human feedback (RLHF). It is responsible for ensuring that the model output remains semantically safe, policy-compliant, and aligned with the intent of the developer. Security failures at this layer typically stem from limitations in model reasoning, degradation of alignment during fine-tuning, or compromised training integrity, including the presence of latent backdoors that can selectively bypass alignment constraints at inference time.
+
+#### MCP Host / Application
+
+The host layer occupies a central position in the MCP architecture because it is responsible for mediating between model outputs and real-world tool execution. As the component that embeds the language model within an application context, the host governs execution state, capability exposure, resource boundaries, and orchestration logic across tools and services. Prior work has shown that many failures in LLM-based systems arise not from the model itself, but from insufficient enforcement at the application boundary where model decisions are translated into actions. Because the host layer retains visibility into tool schemas, execution intent, and system state, it provides a uniquely effective location to enforce safety invariants, validate model outputs, and constrain behavior before irreversible side effects occur. For these reasons, the host layer forms a distinct and indispensable element of the taxonomy, reflecting both its architectural responsibility and its role as the final programmable control point prior to tool invocation.
+
+#### MCP Client / SDK
+
+The MCP Client / SDK layer comprises the software runtime that bridges the language model–driven agent with external MCP servers, handling protocol parsing, request construction, response interpretation, and local execution logic. This layer operates at a sensitive trust boundary, as it transforms high-level model decisions into concrete network interactions and local actions, often within proximity to user resources and credentials. Security risks arise when client implementations implicitly trust server responses, fail to enforce strict schemas, or allow model-influenced output to trigger unintended behavior. Because the client mediates both inbound data from servers and outbound actions initiated by the model, weaknesses at this layer can amplify upstream failures or enable direct compromise even when other components behave correctly. Consequently, the client layer is a critical enforcement point for validation, isolation, and permission scope within the MCP architecture.
+
+#### MCP Server / Tool Execution
+
+The MCP Server / Tool Execution layer represents the runtime environment in which MCP tools are implemented and executed, including server-side logic, exposed APIs, authentication checks, plugin loading, and resource management. This layer is responsible for safely handling inputs received from MCP hosts and clients, enforcing isolation boundaries, and ensuring that tool execution does not violate system or data integrity. Security failures here typically arise from unsafe execution environments, weak authentication or authorization, overly permissive introspection interfaces, or inadequate isolation between tools and underlying infrastructure. Because this layer directly executes code and processes data on behalf of the LLM, it forms a critical containment boundary: once compromised, attacks can escalate beyond the MCP ecosystem into broader systems, making robust server-side safeguards essential for in-depth defense.
+
+#### Transport / Network
+
+The Transport / Network layer captures the communication channels over which MCP messages, tool invocations, and responses are exchanged between hosts, clients, and servers. This layer encompasses network protocols, session management, message framing, encryption, authentication of endpoints, and guarantees related to integrity, freshness, and ordering. Unlike higher layers that reason about intent or semantics, the transport layer is responsible for ensuring that messages are delivered faithfully and only between authenticated parties, even in the presence of network-level adversaries.
+
+Security failures at this layer arise from weak or absent transport protections, such as insufficient authentication of MCP endpoints, lack of message integrity or replay protection, improper session binding, or insecure transport configurations. These weaknesses can enable man-in-the-middle attacks, replay or reordering of tool calls, downgrade attacks, or injection of stale or malicious responses that remain syntactically valid at higher layers. Because MCP agents often assume reliable and trustworthy communication, transport-layer compromises can silently subvert otherwise correct behavior at the client, host, or server layers, making robust network-level safeguards essential for preserving end-to-end security guarantees.
+
+#### Registry / Marketplace & Supply Chain
+
+The Registry / Marketplace – Supply Chain layer captures all mechanisms responsible for discovery, distribution, versioning, and provenance of MCP servers, tools, plugins, and their updates. This layer sits upstream of execution and governs how components enter the MCP ecosystem in the first place. Its security role is to ensure authenticity, integrity, and traceability of MCP artifacts before they are ever invoked by a host or client. Failures at this layer undermine trust assumptions across the entire stack: once a malicious or compromised component is registered, updated, or promoted through the supply chain, downstream layers may execute it correctly yet still produce unsafe outcomes. As a result, this layer is fundamental for enforcing trust boundaries, provenance guarantees, and long-term ecosystem safety rather than runtime correctness alone.
+
+---
+
+### Primary Defense Layer
+
+The primary defense layer refers to the first line of protection designed to prevent an attack from occurring in the first place, or to block it at the earliest possible point of interaction with the system. This layer operates closest to the attack source, aiming to stop malicious inputs, behaviors, or configurations before they can influence downstream components.
+
+---
+
+### Secondary Defense Layer
+
+The secondary defense layer provides defense-in-depth by limiting the impact and propagation of an attack when the primary defense layer fails, is misconfigured, or is deliberately bypassed. Rather than preventing initial compromise, this layer focuses on containment, mitigation, and recovery.
+
+To clarify how primary and secondary defense layers differ in practice, a rug pull attack provides a concrete example. A malicious MCP tool can successfully pass pre-execution trust decisions at the registry and approval stage, where evaluation is limited to static metadata, declared interfaces, and expected behavior, while deferring its malicious actions until after trust has been established. Once the trusted tool is executed at runtime, its behavior transitions in a time- or state-dependent manner, making the attack observable only within the secondary (host-level) defense layer. This example illustrates how defense responsibilities are distributed across layers in the taxonomy, rather than proposing a specific mitigation strategy.
+
+---
+
+If you want, I can also tighten the writing further (more concise, more “top-tier conference” style).
+
