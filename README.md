@@ -113,3 +113,14 @@ is useful.**
 
 **Code generation** is an application that requires low diversity and therefore,a low temperature to ensure the syntactic correctness and reliable execution. Increasing the temperature may increase creativity but often results in broken code.
 **Creative writing and brainstorming** are two applications that benefit from a high temperature. A higher temperature increases creativity and enables us to explore more unique ideas, metaphors, and slogans beyond the most statistically likely outputs.
+
+## Problem 2
+**a. Select a text document or small document collection.**
+
+**b. Load the document(s) and split the text into overlapping chunks.**
+
+**c. Generate embeddings for each chunk using a transformer or sentence-embedding model.**
+**d. Store each chunk and its embedding in a simple vector store.**
+**e. For a user query, compute its embedding and retrieve the top k chunks using cosine.**
+similarity.
+**f. Report retrieved chunks for at least three example queries.**
