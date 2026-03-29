@@ -391,3 +391,16 @@ Selected Techniques: One-shot prompting and Chain-of-thought.
 
 **b. Show the resulting latency and accuracy.**
 
+accuracy = 93%
+latency = 2.5s
+accuracy_gain = +8%
+latency_increase = +0.7s
+
+total_accuracy = 85 (base) + 3 (one-shot) + 5 (cot)
+total_latency = 1.8 (base) + 0.2 (one-shot) + 0.5 (cot)
+
+**c. A teammate suggests using a fixed prompt template for all queries. Discuss two draw-
+backs and one situation where this may still be acceptable**
+
+drawback_1 = Rigidity Across Query Intent: A fixed template treats a simple fact-check the same as a complex research synthesis. This leads to either wasted latency on easy tasks or insufficient instructions for deep reasoning on hard ones.
+drawback_2 = Context Sensitivity: Medical documents vary significantly (e.g., structured tables vs. clinical narratives). A one-size-fits-all prompt often fails to guide the model on how to accurately parse diverse source materials, increasing hallucination risks.
