@@ -10,15 +10,15 @@ LLaMA-3-8B-Instruct, Mistral-7B-Instruct, Qwen-2.5-7B-Instruct, Hugging Face too
 
 ## Table of Contents
 
-* [Problem 1](#1-Problem1)
-* [Problem 2](#2-Problem2)
-* [Problem 3](#3-Problem3)
-* [Problem 4](#4-Problem4)
-* [Problem 5](#5-Problem5)
+* [Problem 1](#problem-1)
+* [Problem 2](#problem-2)
+* [Problem 3](#problem-3)
+* [Problem 4](#problem-4)
+* [Problem 5](#problem-5)
 
 ---
 
-##Problem 1
+## Problem 1
 
 **a. Select 5 prompts requiring short but nontrivial responses.**
 
@@ -375,7 +375,8 @@ Secondary Defense Verification: RAG can serve as a Secondary Defense Layer. If a
 gate, the system can use RAG to "lookup" known attack patterns (like the "rug pull" mentioned in your chunks) and flag
 the activity in real-time.
 
-**Problem 5**
+## Problem 5
+
 ***You are designing a RAG system for medical research queries. The current system retrieves
 the top 3 documents with 85% accuracy and a response time of 1.8 seconds. The latency
 budget is 2.5 seconds.***
