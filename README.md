@@ -315,8 +315,18 @@ The issue: The system gives up because it couldn't find any relevant data for Qu
 
 ***Chunking:*** If the answer is actually in your document but was "cut in half" during the chunking process, the retriever might not recognize it as a match, causing the system to miss it entirely.
 
-c. Explain how chunk size and overlap affect retrieval.
+**c. Explain how chunk size and overlap affect retrieval.**
 
-d. Suggest two improvements to the system.
+**1. Chunk Size**
+**Small chunks:** Like a "Tweet." They are great for finding a specific date or name, but they often miss the "why." This is likely why your system said "I don't know"—the answer was there, but the "note" was too small to be useful.
+
+**Large chunks:** Like a "Chapter." They keep the full story together, but they can be "noisy." The AI might get distracted by unrelated text, leading to generic or confusing answers.
+
+**2. Overlap**
+The Goal: It’s the "glue" that repeats a few sentences from the end of one chunk at the start of the next. It ensures a thought isn't cut in half.
+
+The Trap: If your overlap is too big, your search results will look almost identical. This is exactly why your results were repetitive—you were basically handing the AI three copies of the same page.
+
+**d. Suggest two improvements to the system.**
 
 e. If relevant, briefly relate RAG to your course project.
