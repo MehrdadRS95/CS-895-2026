@@ -329,4 +329,22 @@ The Trap: If your overlap is too big, your search results will look almost ident
 
 **d. Suggest two improvements to the system.**
 
-e. If relevant, briefly relate RAG to your course project.
+
+Gemini said
+Here are two quick upgrades to fix your "I don't know" and "repetitive" issues:
+
+1. ****Hybrid Search (Finds Technical Words)****
+
+Standard "meaning-based" search sometimes misses exact technical terms. By adding Keyword Search (BM25), the system looks for the literal words in your query alongside the overall meaning.
+
+Fixes: The "I don't know" problem. If a specific term like "rug pull" exists in your text, this ensures the system actually finds it.
+
+2. ****Re-ranking or MMR (Fixes Repetition)****
+
+Right now, the search might grab the top three most "similar" chunks, which often ends up being the same paragraph written slightly differently. Maximal Marginal Relevance (MMR) or a Re-ranker forces the system to pick chunks that are relevant but different from each other.
+
+Fixes: The "Broken Record" problem. It filters out duplicates so the AI gets a variety of facts instead of the same sentence three times.
+
+
+**e. If relevant, briefly relate RAG to your course project.**
+Secondary Defense Verification: RAG can serve as a Secondary Defense Layer. If a malicious input bypasses the primary gate, the system can use RAG to "lookup" known attack patterns (like the "rug pull" mentioned in your chunks) and flag the activity in real-time.
