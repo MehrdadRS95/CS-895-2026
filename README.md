@@ -8,7 +8,17 @@ This assignment studies LLM inference and retrieval-augmented generation (RAG). 
 may use any accessible models or libraries (e.g., GPT-4o Mini, Claude Haiku, Gemini Flash,
 LLaMA-3-8B-Instruct, Mistral-7B-Instruct, Qwen-2.5-7B-Instruct, Hugging Face tools).
 
-## Problem 1
+## Table of Contents
+
+* [Problem 1](#1-Problem1)
+* [Problem 2](#2-Problem2)
+* [Problem 3](#3-Problem3)
+* [Problem 4](#4-Problem4)
+* [Problem 5](#5-Problem5)
+
+---
+
+##Problem 1
 
 **a. Select 5 prompts requiring short but nontrivial responses.**
 
@@ -382,7 +392,6 @@ Total_Extra_Latency = +0.7s
 Final_Accuracy = 93%
 Final_Latency = 2.5s
 
-
 Combination_1 = One-shot (0.2s) + Chain-of-thought (0.5s) equals 0.7s for +8% gain
 Combination_2 = Query rewriting (0.3s) + One-shot (0.2s) equals 0.5s for +7% gain
 Note = All other combinations providing higher accuracy exceed the 0.7s latency headroom.
@@ -402,5 +411,9 @@ total_latency = 1.8 (base) + 0.2 (one-shot) + 0.5 (cot)
 **c. A teammate suggests using a fixed prompt template for all queries. Discuss two draw-
 backs and one situation where this may still be acceptable**
 
-drawback_1 = Rigidity Across Query Intent: A fixed template treats a simple fact-check the same as a complex research synthesis. This leads to either wasted latency on easy tasks or insufficient instructions for deep reasoning on hard ones.
-drawback_2 = Context Sensitivity: Medical documents vary significantly (e.g., structured tables vs. clinical narratives). A one-size-fits-all prompt often fails to guide the model on how to accurately parse diverse source materials, increasing hallucination risks.
+drawback_1 = Rigidity Across Query Intent: A fixed template treats a simple fact-check the same as a complex research
+synthesis. This leads to either wasted latency on easy tasks or insufficient instructions for deep reasoning on hard
+ones.
+drawback_2 = Context Sensitivity: Medical documents vary significantly (e.g., structured tables vs. clinical
+narratives). A one-size-fits-all prompt often fails to guide the model on how to accurately parse diverse source
+materials, increasing hallucination risks.
