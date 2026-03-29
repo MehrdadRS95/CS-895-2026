@@ -283,6 +283,20 @@ libraries—that a general model might forget.
 ## Problem 4
 a. Identify at least two incorrect or weak answers from your system.
 
-***Logic Gap***: The AI ignored the context or the question.,Like a person who didn't listen to you.
-***Redundancy***: The search results just repeated themselves.,Like a broken record wasting your time.
+**First weakness (Query 1 and 2)** 
+- Because the RAG-provided context is limited and based on a small set of documentation, the responses may lack accuracy, and similar queries are likely to yield repetitive or identical answers.
+- As the context provided by RAG is not comprehensive and it is a small documentation, the response is not accurate and similar queries may receive same responses.
 
+**Second weakness (Based on query 5)**
+The system responds with "I dont't know", which is not desirable. Although RAG is expected to provide more accurate results, no relevant information is received in for this query.
+
+***Third weakness (logic gap based on query 5)***: The AI ignored the context or the question.,Like a person who didn't listen to you.
+
+
+**b. For each, determine whether the issue arises from:**
+  - chunking
+- embeddings
+- retrieval
+- prompting
+- generation    
+    
