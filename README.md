@@ -278,25 +278,45 @@ wasn't trained on.
 ***Domain Specificity***: Ensures accuracy for niche topics—like specific medical interactions or rare code
 libraries—that a general model might forget.
 
-
-
 ## Problem 4
+
 a. Identify at least two incorrect or weak answers from your system.
 
-**First weakness (Query 1 and 2)** 
-- Because the RAG-provided context is limited and based on a small set of documentation, the responses may lack accuracy, and similar queries are likely to yield repetitive or identical answers.
-- As the context provided by RAG is not comprehensive and it is a small documentation, the response is not accurate and similar queries may receive same responses.
+**First weakness (Query 1 and 2)**
 
-**Second weakness (Based on query 5)**
-The system responds with "I dont't know", which is not desirable. Although RAG is expected to provide more accurate results, no relevant information is received in for this query.
+- Because the RAG-provided context is limited and based on a small set of documentation, the responses may lack
+  accuracy, and similar queries are likely to yield repetitive or identical answers.
+- As the context provided by RAG is not comprehensive and it is a small documentation, the response is not accurate and
+  similar queries may receive same responses.
 
-***Third weakness (logic gap based on query 5)***: The AI ignored the context or the question.,Like a person who didn't listen to you.
-
+**Second weakness (Based on query 4)**
+The system responds with "I dont't know", which is not desirable. Although RAG is expected to provide more accurate
+results, no relevant information is received in for this query.
 
 **b. For each, determine whether the issue arises from:**
-  - chunking
+
+- chunking
 - embeddings
 - retrieval
 - prompting
-- generation    
-    
+- generation
+
+First weakness is mainly because of "Retrieval". My retriever is probably pulling the exact same "Top 3" chunks for every query that mentions "security." If it isn't finding diverse information, the AI has nothing new to say.
+Moreover, It could be a problem arising from embeddings: If the embedding model isn't sensitive enough, it sees two different questions (like "How do I secure MCP?" and "What are MCP threats?") as the exact same "math vector." Because the math looks the same, it grabs the same files.
+
+**Second weakness**
+The issue: The system gives up because it couldn't find any relevant data for Query 4.
+
+***Primary reasons***:
+
+***Retrieval:*** This is a direct "search failure." The system went into the library to find information on your query and came back empty-handed. Either the "keywords" didn't match or the search algorithm isn't strong enough.
+
+***Prompting:*** Ironically, the "I don't know" part is actually a Prompting success. You told the AI to say that if it was confused (to prevent lying). The "weakness" is that the prompt is so strict it doesn't allow the AI to even try to help if the retrieval wasn't perfect.
+
+***Chunking:*** If the answer is actually in your document but was "cut in half" during the chunking process, the retriever might not recognize it as a match, causing the system to miss it entirely.
+
+c. Explain how chunk size and overlap affect retrieval.
+
+d. Suggest two improvements to the system.
+
+e. If relevant, briefly relate RAG to your course project.
