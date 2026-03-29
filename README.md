@@ -277,3 +277,12 @@ wasn't trained on.
 
 ***Domain Specificity***: Ensures accuracy for niche topics—like specific medical interactions or rare code
 libraries—that a general model might forget.
+
+
+
+## Problem 4
+a. Identify at least two incorrect or weak answers from your system.
+
+***Logic Gap***: The AI ignored the context or the question.,Like a person who didn't listen to you.
+***Redundancy***: The search results just repeated themselves.,Like a broken record wasting your time.
+
