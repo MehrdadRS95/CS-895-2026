@@ -301,50 +301,93 @@ results, no relevant information is received in for this query.
 - prompting
 - generation
 
-First weakness is mainly because of "Retrieval". My retriever is probably pulling the exact same "Top 3" chunks for every query that mentions "security." If it isn't finding diverse information, the AI has nothing new to say.
-Moreover, It could be a problem arising from embeddings: If the embedding model isn't sensitive enough, it sees two different questions (like "How do I secure MCP?" and "What are MCP threats?") as the exact same "math vector." Because the math looks the same, it grabs the same files.
+First weakness is mainly because of "Retrieval". My retriever is probably pulling the exact same "Top 3" chunks for
+every query that mentions "security." If it isn't finding diverse information, the AI has nothing new to say.
+Moreover, It could be a problem arising from embeddings: If the embedding model isn't sensitive enough, it sees two
+different questions (like "How do I secure MCP?" and "What are MCP threats?") as the exact same "math vector." Because
+the math looks the same, it grabs the same files.
 
 **Second weakness**
 The issue: The system gives up because it couldn't find any relevant data for Query 4.
 
 ***Primary reasons***:
 
-***Retrieval:*** This is a direct "search failure." The system went into the library to find information on your query and came back empty-handed. Either the "keywords" didn't match or the search algorithm isn't strong enough.
+***Retrieval:*** This is a direct "search failure." The system went into the library to find information on your query
+and came back empty-handed. Either the "keywords" didn't match or the search algorithm isn't strong enough.
 
-***Prompting:*** Ironically, the "I don't know" part is actually a Prompting success. You told the AI to say that if it was confused (to prevent lying). The "weakness" is that the prompt is so strict it doesn't allow the AI to even try to help if the retrieval wasn't perfect.
+***Prompting:*** Ironically, the "I don't know" part is actually a Prompting success. You told the AI to say that if it
+was confused (to prevent lying). The "weakness" is that the prompt is so strict it doesn't allow the AI to even try to
+help if the retrieval wasn't perfect.
 
-***Chunking:*** If the answer is actually in your document but was "cut in half" during the chunking process, the retriever might not recognize it as a match, causing the system to miss it entirely.
+***Chunking:*** If the answer is actually in your document but was "cut in half" during the chunking process, the
+retriever might not recognize it as a match, causing the system to miss it entirely.
 
 **c. Explain how chunk size and overlap affect retrieval.**
 
 **1. Chunk Size**
-**Small chunks:** Like a "Tweet." They are great for finding a specific date or name, but they often miss the "why." This is likely why your system said "I don't know"—the answer was there, but the "note" was too small to be useful.
+**Small chunks:** Like a "Tweet." They are great for finding a specific date or name, but they often miss the "why."
+This is likely why your system said "I don't know"—the answer was there, but the "note" was too small to be useful.
 
-**Large chunks:** Like a "Chapter." They keep the full story together, but they can be "noisy." The AI might get distracted by unrelated text, leading to generic or confusing answers.
+**Large chunks:** Like a "Chapter." They keep the full story together, but they can be "noisy." The AI might get
+distracted by unrelated text, leading to generic or confusing answers.
 
 **2. Overlap**
-The Goal: It’s the "glue" that repeats a few sentences from the end of one chunk at the start of the next. It ensures a thought isn't cut in half.
+The Goal: It’s the "glue" that repeats a few sentences from the end of one chunk at the start of the next. It ensures a
+thought isn't cut in half.
 
-The Trap: If your overlap is too big, your search results will look almost identical. This is exactly why your results were repetitive—you were basically handing the AI three copies of the same page.
+The Trap: If your overlap is too big, your search results will look almost identical. This is exactly why your results
+were repetitive—you were basically handing the AI three copies of the same page.
 
 **d. Suggest two improvements to the system.**
-
 
 Gemini said
 Here are two quick upgrades to fix your "I don't know" and "repetitive" issues:
 
 1. ****Hybrid Search (Finds Technical Words)****
 
-Standard "meaning-based" search sometimes misses exact technical terms. By adding Keyword Search (BM25), the system looks for the literal words in your query alongside the overall meaning.
+Standard "meaning-based" search sometimes misses exact technical terms. By adding Keyword Search (BM25), the system
+looks for the literal words in your query alongside the overall meaning.
 
-Fixes: The "I don't know" problem. If a specific term like "rug pull" exists in your text, this ensures the system actually finds it.
+Fixes: The "I don't know" problem. If a specific term like "rug pull" exists in your text, this ensures the system
+actually finds it.
 
 2. ****Re-ranking or MMR (Fixes Repetition)****
 
-Right now, the search might grab the top three most "similar" chunks, which often ends up being the same paragraph written slightly differently. Maximal Marginal Relevance (MMR) or a Re-ranker forces the system to pick chunks that are relevant but different from each other.
+Right now, the search might grab the top three most "similar" chunks, which often ends up being the same paragraph
+written slightly differently. Maximal Marginal Relevance (MMR) or a Re-ranker forces the system to pick chunks that are
+relevant but different from each other.
 
-Fixes: The "Broken Record" problem. It filters out duplicates so the AI gets a variety of facts instead of the same sentence three times.
-
+Fixes: The "Broken Record" problem. It filters out duplicates so the AI gets a variety of facts instead of the same
+sentence three times.
 
 **e. If relevant, briefly relate RAG to your course project.**
-Secondary Defense Verification: RAG can serve as a Secondary Defense Layer. If a malicious input bypasses the primary gate, the system can use RAG to "lookup" known attack patterns (like the "rug pull" mentioned in your chunks) and flag the activity in real-time.
+Secondary Defense Verification: RAG can serve as a Secondary Defense Layer. If a malicious input bypasses the primary
+gate, the system can use RAG to "lookup" known attack patterns (like the "rug pull" mentioned in your chunks) and flag
+the activity in real-time.
+
+**Problem 5**
+***You are designing a RAG system for medical research queries. The current system retrieves
+the top 3 documents with 85% accuracy and a response time of 1.8 seconds. The latency
+budget is 2.5 seconds.***
+
+***Assume techniques may be combined and their effects are additive.***
+
+**a. Select the technique(s) that maximize accuracy within the latency budget.**
+
+Headroom_Calculation = 2.5s (Budget) - 1.8s (Current) = 0.7s available
+Selected_Techniques = One-shot prompting, Chain-of-thought
+Total_Accuracy_Gain = +8%
+Total_Extra_Latency = +0.7s
+
+Final_Accuracy = 93%
+Final_Latency = 2.5s
+
+
+Combination_1 = One-shot (0.2s) + Chain-of-thought (0.5s) equals 0.7s for +8% gain
+Combination_2 = Query rewriting (0.3s) + One-shot (0.2s) equals 0.5s for +7% gain
+Note = All other combinations providing higher accuracy exceed the 0.7s latency headroom.
+
+Selected Techniques: One-shot prompting and Chain-of-thought.
+
+**b. Show the resulting latency and accuracy.**
+
