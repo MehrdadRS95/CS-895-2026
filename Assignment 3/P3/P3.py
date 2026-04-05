@@ -13,7 +13,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 print("Loading Vector Store and Model...")
 model = SentenceTransformer('all-MiniLM-L6-v2')
 # Using your specific path
-pkl_path = "/home/mehrdad/Main/ODU/ODU Courses/LLM architecture/Assigment 3/P2/final_vector_store.pkl"
+pkl_path = "/Assignment 3/P2/final_vector_store.pkl"
 vector_store = pd.read_pickle(pkl_path)
 
 
