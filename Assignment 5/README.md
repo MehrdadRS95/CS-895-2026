@@ -20,7 +20,7 @@ TensorFlow, Google Colab).**
 
 #### a. Explain the main differences between recurrent neural networks (RNNs), long short-term memory networks (LSTMs), and Transformers.
 
-1. RNN
+1. **RNN**
 
 - **How they work:** RNNs process data sequentially, one step (or word) at a time. As they read each word, they update
   a "hidden state" which acts as a running memory of the sentence so far.
@@ -28,7 +28,7 @@ TensorFlow, Google Colab).**
 - **The flaw:** Standard RNNs have a very "short memory." When processing long sentences, the information from the
   beginning of the sentence gradually fades away or gets diluted by the time the model reaches the end.
 
-2. Long Short-Term Memory Networks (LSTMs)
+2. **Long Short-Term Memory Networks (LSTMs)**
 
 - **How they work:** LSTMs are a specialized, advanced version of RNNs. Instead of a simple hidden state, they use a
   complex "cell state" accompanied by three gates: an Input Gate, a Forget Gate, and Output Gate.
@@ -41,7 +41,7 @@ TensorFlow, Google Colab).**
   word-by-word), they still suffer from the same severe bottleneck: they cannot be parallelized efficiently during
   training.
 
-3. Transformers
+3. **Transformers**
 
 - **How they work:** Transformers completely abandon the recurrent, step-by-step processing. Instead, they process the
   entire sequence simultaneously using a mechanism called Self-Attention. This allows the model to look at every single
@@ -58,6 +58,18 @@ TensorFlow, Google Colab).**
   the original order of the words.
 
 #### b. Discuss why Transformers have become the dominant architecture for many natural language processing tasks.
+
+1. **The Rise of Transfer Learning and Foundation Models**
+   Transformers proved to be exceptionally good at "unsupervised pre-training." A single, massive Transformer can read
+   billions of web pages to learn the fundamental statistical structure of human language. Once this massive "foundation
+   model" is trained, it can be easily and cheaply fine-tuned for hundreds of specific downstream tasks—such as
+   translation, summarization, coding, or sentiment analysis—requiring very little task-specific data.
+
+3. **Superior Long-Range Context**
+   Human language heavily relies on context. A pronoun at the end of a long paragraph might refer to a subject
+   introduced in the very first sentence. While LSTMs attempted to solve this, they still struggled with very long gaps.
+   The Transformer's self-attention mechanism connects every word directly to every other word in the sequence. This
+   creates a near-perfect understanding of context, regardless of how far apart the related words are.
 
 #### c. Define self-attention and explain how it differs from traditional attention mechanisms used in sequence models.
 
