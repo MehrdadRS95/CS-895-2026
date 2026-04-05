@@ -89,15 +89,18 @@ figure out which foreign word it should focus on at that exact moment.
 
 Key Differences
 
-**Traditional Attention:** Operates between two different sequences. It connects the input sequence to the output sequence (
+**Traditional Attention:** Operates between two different sequences. It connects the input sequence to the output
+sequence (
 Encoder to Decoder).
 
-**Self-Attention:** Operates within a single sequence. It connects elements of the input sequence to other elements of the
+**Self-Attention:** Operates within a single sequence. It connects elements of the input sequence to other elements of
+the
 same input sequence (or output to output) to build a richer contextual understanding of the text itself.
 
 Architectural Dependency:
 
-**Traditional Attention:** Was built as an add-on for RNNs and LSTMs. It was created to solve the bottleneck of trying to
+**Traditional Attention:** Was built as an add-on for RNNs and LSTMs. It was created to solve the bottleneck of trying
+to
 compress a whole sentence into one fixed-size vector, but it still fundamentally relied on the step-by-step processing
 of the RNN.
 
@@ -106,6 +109,12 @@ step-by-step; instead, it evaluates the relationships between all words simultan
 modern AI's massive parallelization and speed.
 
 ##### d. Describe the purpose of positional encodings in the Transformer architecture.
+
+Because Transformers process all words simultaneously rather than step-by-step, they naturally lose track of word order.
+Positional encodings solve this by attaching a mathematical "tag" (using sine and cosine functions) to each word's data
+before processing. This tag tells the model exactly where the word is located in the sentence, allowing the Transformer
+to understand both the meaning and the correct sequence of the words without sacrificing its fast, parallel processing
+speed.
 
 #### e. Explain the concept of multi-head attention and why it improves model performance.
 
