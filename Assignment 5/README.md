@@ -9,19 +9,62 @@ You may use any accessible tools or libraries (e.g., Hugging Face Transformers, 
 TensorFlow, Google Colab).**
 
 ## Table of Contents
+
 - [Problem 1](#Problem-1)
 - [Problem 2](#installation)
 - [Problem 3](#usage)
 - [Problem 4](#features)
 - [Problem 5](#contributing)
 
-
 ## Problem 1
+
 #### a. Explain the main differences between recurrent neural networks (RNNs), long short-term memory networks (LSTMs), and Transformers.
+
+1. RNN
+
+- **How they work:** RNNs process data sequentially, one step (or word) at a time. As they read each word, they update
+  a "hidden state" which acts as a running memory of the sentence so far.
+- **The Advantage:** They naturally understand the order of sequences because of their step-by-step design.
+- **The flaw:** Standard RNNs have a very "short memory." When processing long sentences, the information from the
+  beginning of the sentence gradually fades away or gets diluted by the time the model reaches the end.
+
+2. Long Short-Term Memory Networks (LSTMs)
+
+- **How they work:** LSTMs are a specialized, advanced version of RNNs. Instead of a simple hidden state, they use a
+  complex "cell state" accompanied by three gates: an Input Gate, a Forget Gate, and Output Gate.
+
+- **The Advantage:** These gates act like a smart filter, learning exactly what information to keep in long-term memory
+  and what irrelevant information to forget. This effectively solves the vanishing gradient problem of vanilla RNNs,
+  allowing them to handle much longer sequences.
+
+- **The Flaw:** They are computationally heavy and complex. Furthermore, because they are still recurrent (processing
+  word-by-word), they still suffer from the same severe bottleneck: they cannot be parallelized efficiently during
+  training.
+
+3. Transformers
+
+- **How they work:** Transformers completely abandon the recurrent, step-by-step processing. Instead, they process the
+  entire sequence simultaneously using a mechanism called Self-Attention. This allows the model to look at every single
+  word in a sentence at the exact same time and mathematically score how each word relates to every other word,
+  regardless of how far apart they are.
+
+- **The Advantage:** 1. Infinite "Memory": They capture long-range dependencies perfectly because the distance between
+  the first word and the last word is always just one step via the attention mechanism.
+
+
+- **The Flaw:** The self-attention mechanism scales quadratically (O(N^2)). If you double the length of the input text,
+  the computational memory required quadruples, making it very expensive to process extremely long documents.
+  Additionally, because they process everything at once, they require artificial "positional encodings" to understand
+  the original order of the words.
+
 #### b. Discuss why Transformers have become the dominant architecture for many natural language processing tasks.
+
 #### c. Define self-attention and explain how it differs from traditional attention mechanisms used in sequence models.
+
 ##### d. Describe the purpose of positional encodings in the Transformer architecture.
+
 #### e. Explain the concept of multi-head attention and why it improves model performance.
+
 #### f. Identify and briefly describe the key components of the Transformer architecture introduced in the “Attention Is All You Need” paper.
 
 
