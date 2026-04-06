@@ -118,6 +118,26 @@ speed.
 
 #### e. Explain the concept of multi-head attention and why it improves model performance.
 
+**The Concept of Multi-Head Attention**
+Instead of performing a single self-attention calculation, Transformers use a mechanism called "multi-head attention."
+This means the model runs the self-attention process multiple times in parallel (these parallel processes are called "
+heads"). Each head has its own independently learned set of weights (queries, keys, and values). After all the heads
+have processed the sequence simultaneously, their individual outputs are concatenated (stitched back together) and
+linearly transformed to produce the final output.
+
+**Why it Improves Model Performance**
+
+***Multiple Perspectives (Representation Subspaces):*** With a single attention head, the model might average out or lose
+specific contextual details because it is forced to focus on only one dominant relationship at a time. Multi-head
+attention allows different heads to specialize in learning different types of relationships. For example, when analyzing
+a sentence, one attention head might focus heavily on tracking pronouns (who "it" refers to), another might focus on the
+grammatical structure (verb-subject relationships), and a third might track emotional sentiment.
+
+***Richer Context:*** By combining these various independent "perspectives" back together, the model gains a much
+richer, multidimensional understanding of the text. It allows the model to jointly attend to information from different
+representation subspaces at different positions, significantly boosting its reasoning capabilities, accuracy, and
+ability to handle complex language structures.
+
 #### f. Identify and briefly describe the key components of the Transformer architecture introduced in the “Attention Is All You Need” paper.
 
 
