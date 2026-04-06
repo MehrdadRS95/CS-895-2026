@@ -140,6 +140,51 @@ ability to handle complex language structures.
 
 #### f. Identify and briefly describe the key components of the Transformer architecture introduced in the “Attention Is All You Need” paper.
 
+The original Transformer architecture proposed by Vaswani et al. in 2017 consists of several foundational components working together:
+
+1. **Encoder-Decoder Architecture**
+   **Encoder:** A stack of identical layers that process the input sequence to extract a deep contextual representation.
+   **Decoder:** A similar stack of layers that generates the output sequence step-by-step. It uses "masked" self-attention to prevent it from looking ahead at future words during generation, and cross-attention to look back at the encoder's output.
+
+2. **Scaled Dot-Product Attention**
+   The mathematical foundation of self-attention. It calculates the relationships between words using matrices called Queries (Q), Keys (K), and Values (V), scaled by the dimension of the keys to prevent extremely small gradients during training.
+
+3. **Multi-Head Attention**
+   As discussed in the previous section, this mechanism runs multiple self-attention layers in parallel to capture different linguistic nuances and representation subspaces.
+
+4. **Position-wise Feed-Forward Networks (FFN)**
+   After the attention mechanism, each word's representation is passed through a standard, fully connected feed-forward neural network. This is applied identically but independently to every position, adding non-linear complexity to the model's understanding.
+
+5. **Positional Encodings**
+   Since the model processes everything simultaneously, sine and cosine functions are used to add positional information to the input embeddings, ensuring the model retains the sequence order.
+
+6. **Residual Connections & Layer Normalization**
+   Each sub-layer (like attention or FFN) has a "shortcut" connection bypassing it, followed by layer normalization. This stabilizes the learning process, prevents the vanishing gradient problem, and allows the model to be stacked very deeply without performance degradation.
 
 
+****g. Discuss two advantages and two potential drawbacks of using Transformers in deep learning systems.****
 
+**Advantages:**
+
+1. **Massive Parallelization and Scalability**
+   Unlike sequential models (RNNs), Transformers process all input elements simultaneously. This structural design fully leverages modern GPU and TPU hardware, removing computational bottlenecks and enabling the training of gigantic foundation models on unprecedented amounts of data.
+
+2. **Superior Modeling of Long-Range Dependencies**
+   The self-attention mechanism creates direct mathematical connections between all elements in a sequence, regardless of their physical distance. This solves the "forgetting" issues of older architectures, allowing the model to perfectly capture broad context and complex relationships spanning entire documents.
+
+**Drawbacks:**
+
+1. **Quadratic Computational Complexity ($O(N^2)$)**
+   The self-attention mechanism requires comparing every element in the sequence to every other element. If you double the length of the input, the required computational power and memory quadruple. This makes processing extremely long sequences highly inefficient and hardware-intensive.
+
+2. **Massive Data Requirements (Data Hunger)**
+   Transformers lack the built-in structural assumptions (inductive biases) found in older architectures—like CNNs that assume nearby pixels are related, or RNNs that assume time order matters. Because they start with no such assumptions, Transformers require vastly larger datasets to "learn" these patterns from scratch before they can achieve state-of-the-art performance.
+
+
+****h. Provide at least two real-world applications of Transformers beyond natural language processing.****
+
+1. **Computer Vision (Vision Transformers)**
+   Transformers have successfully crossed over into computer vision with the Vision Transformer (ViT). Instead of processing words, ViTs slice an image into a grid of "patches" and process them as a sequence. This approach is now used in state-of-the-art applications for image classification, self-driving car object detection, and even medical tumor identification from X-rays.
+
+2. **Biology and Drug Discovery (Protein Folding)**
+   Transformers are making groundbreaking contributions to computational biology. Google DeepMind's AlphaFold relies heavily on spatial attention and transformer-based architectures to predict the 3D structures of proteins based solely on their amino acid sequences. This has solved a 50-year-old grand challenge in biology, rapidly accelerating drug discovery and disease research.
