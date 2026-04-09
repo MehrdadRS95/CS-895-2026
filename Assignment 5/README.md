@@ -216,4 +216,7 @@ working together:
 
 ## Problem 2
 
-📄 **[View PDF](./Assignment5_P2-5.pdf)**
+
+[![Preview](./Assignment5_P2-5_preview.png)](./Assignment5_P2-5.pdf)
+
+[Read full PDF](./Assignment5_P2-5.pdf)
